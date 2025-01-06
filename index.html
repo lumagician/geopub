@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet GeoJSON Loader</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <style>
+      body {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        height: 100vh;
+      }
+      #editor {
+        width: 50%;
+        padding: 10px;
+        background: #f0f0f0;
+        box-sizing: border-box;
+      }
+      #geojson-editor {
+        width: 100%;
+        height: calc(100% - 50px);
+      }
+      #map {
+        width: 50%;
+        height: 100%;
+      }
+      #controls {
+        padding: 10px;
+        background: #f8f9fa;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor">
+      <input
+        type="text"
+        id="geojson-url"
+        placeholder="Enter GeoJSON URL"
+        style="width: 80%; padding: 5px"
+      />
+      <button id="load-btn" style="padding: 5px 10px">Load GeoJSON</button>
+      <textarea
+        id="geojson-editor"
+        placeholder="Edit GeoJSON here..."
+      ></textarea
+      ><br />
+      <button id="update-btn" style="padding: 5px 10px; width: 100%">
+        Update Map
+      </button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // Initialize the map
+      const map = L.map("map").setView([0, 0], 2); // Default view at world scale
+
+      // Add OpenStreetMap tile layer
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      // Layer group to manage GeoJSON data
+      let currentLayer = null;
+
+      // Function to load GeoJSON from a URL
+      function loadGeoJSON(url) {
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Remove the current layer if it exists
+            if (currentLayer) {
+              map.removeLayer(currentLayer);
+            }
+            // Add new GeoJSON data to the map
+            currentLayer = L.geoJSON(data).addTo(map);
+            map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
+
+            // Populate the editor with the GeoJSON data
+            document.getElementById("geojson-editor").value = JSON.stringify(
+              data,
+              null,
+              2
+            );
+          })
+          .catch((error) => {
+            alert(`Failed to load GeoJSON: ${error.message}`);
+          });
+      }
+
+      // Function to update the map with edited GeoJSON
+      function updateMapFromEditor() {
+        const geojsonText = document.getElementById("geojson-editor").value;
+        try {
+          const geojsonData = JSON.parse(geojsonText);
+
+          // Remove the current layer if it exists
+          if (currentLayer) {
+            map.removeLayer(currentLayer);
+          }
+          // Add updated GeoJSON data to the map
+          currentLayer = L.geoJSON(geojsonData).addTo(map);
+          map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
+        } catch (error) {
+          alert("Invalid GeoJSON data. Please check your input.");
+        }
+      }
+
+      // Event listener for the Load button
+      document.getElementById("load-btn").addEventListener("click", () => {
+        const url = document.getElementById("geojson-url").value;
+        if (url) {
+          loadGeoJSON(url);
+        } else {
+          alert("Please enter a valid GeoJSON URL.");
+        }
+      });
+
+      // Event listener for the Update button
+      document
+        .getElementById("update-btn")
+        .addEventListener("click", updateMapFromEditor);
+    </script>
+  </body>
+</html>
