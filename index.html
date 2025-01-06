@@ -14,45 +14,88 @@
         flex-direction: row;
         margin: 0;
         height: 100vh;
+        font-family: Arial, sans-serif;
       }
       #editor {
         width: 50%;
-        padding: 10px;
+        display: flex;
+        flex-direction: column;
         background: #f0f0f0;
         box-sizing: border-box;
+        padding: 20px;
+        border-right: 1px solid #ccc;
+      }
+      #geojson-url {
+        width: calc(100% - 10px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      #load-btn {
+        padding: 8px 15px;
+        margin-left: 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      #load-btn:hover {
+        background-color: #0056b3;
+      }
+      #editor-controls {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
       }
       #geojson-editor {
+        flex-grow: 1;
         width: 100%;
-        height: calc(100% - 50px);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 14px;
+        resize: none;
+        background: white;
+      }
+      #update-btn {
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      #update-btn:hover {
+        background-color: #218838;
       }
       #map {
         width: 50%;
         height: 100%;
       }
-      #controls {
-        padding: 10px;
-        background: #f8f9fa;
-        text-align: center;
-      }
     </style>
   </head>
   <body>
     <div id="editor">
-      <input
-        type="text"
-        id="geojson-url"
-        placeholder="Enter GeoJSON URL"
-        style="width: 80%; padding: 5px"
-      />
-      <button id="load-btn" style="padding: 5px 10px">Load GeoJSON</button>
+      <div id="editor-controls">
+        <input
+          type="text"
+          id="geojson-url"
+          placeholder="Enter GeoJSON URL"
+        />
+        <button id="load-btn">Load GeoJSON</button>
+      </div>
       <textarea
         id="geojson-editor"
         placeholder="Edit GeoJSON here..."
-      ></textarea
-      ><br />
-      <button id="update-btn" style="padding: 5px 10px; width: 100%">
-        Update Map
-      </button>
+      ></textarea>
+      <button id="update-btn">Update Map</button>
     </div>
     <div id="map"></div>
 
@@ -127,6 +170,42 @@
           alert("Please enter a valid GeoJSON URL.");
         }
       });
+
+            // Debounce function to limit the frequency of function execution
+            function debounce(func, delay) {
+        let timeout;
+        return function (...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+      }
+
+      // Function to update the map with edited GeoJSON
+      function updateMapFromEditor() {
+        const geojsonText = document.getElementById("geojson-editor").value;
+        try {
+          const geojsonData = JSON.parse(geojsonText);
+
+          // Remove the current layer if it exists
+          if (currentLayer) {
+            map.removeLayer(currentLayer);
+          }
+          // Add updated GeoJSON data to the map
+          currentLayer = L.geoJSON(geojsonData).addTo(map);
+          map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
+        } catch (error) {
+          console.error("Invalid GeoJSON data. Ignoring changes.");
+        }
+      }
+
+      // Debounced version of the updateMapFromEditor function
+      const debouncedUpdateMap = debounce(updateMapFromEditor, 500);
+
+      // Event listener for changes in the textarea
+      document
+        .getElementById("geojson-editor")
+        .addEventListener("input", debouncedUpdateMap);
+
 
       // Event listener for the Update button
       document
