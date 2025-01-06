@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leaflet GeoJSON Loader</title>
+    <title>Leaflet GeoJSON Loader with Draw</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"
     />
     <style>
       body {
@@ -100,6 +104,7 @@
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
     <script>
       // Initialize the map
       const map = L.map("map").setView([0, 0], 2); // Default view at world scale
@@ -110,10 +115,58 @@
         attribution: "© OpenStreetMap contributors",
       }).addTo(map);
 
-      // Layer group to manage GeoJSON data
-      let currentLayer = null;
+      // Initialize Layer group to manage GeoJSON data
+      const drawnItems = new L.FeatureGroup().addTo(map);
 
-      // Function to load GeoJSON from a URL
+      // Centralized GeoJSON data (single source of truth)
+      let currentGeoJSON = {
+        type: "FeatureCollection",
+        features: [],
+      };
+
+      // Initialize Leaflet Draw
+      const drawControl = new L.Control.Draw({
+        edit: {
+          featureGroup: drawnItems,
+        },
+        draw: {
+          polygon: true,
+          polyline: true,
+          rectangle: true,
+          circle: true,
+          marker: true,
+        },
+      });
+
+      map.addControl(drawControl);
+
+      // Function to update map with GeoJSON
+      function updateMap() {
+        // Remove previous layers
+        drawnItems.clearLayers();
+        // Add new GeoJSON features to the map
+        L.geoJSON(currentGeoJSON, {
+          onEachFeature: function (feature, layer) {
+            drawnItems.addLayer(layer);
+          },
+        }).addTo(map);
+        map.fitBounds(drawnItems.getBounds());
+      }
+
+      // Function to update GeoJSON from the editor
+      function updateGeoJSONFromEditor() {
+        const geojsonText = document.getElementById("geojson-editor").value;
+        try {
+          // Parse the GeoJSON from the editor
+          const geojsonData = JSON.parse(geojsonText);
+          currentGeoJSON = geojsonData;
+          updateMap(); // Reflect the changes on the map
+        } catch (error) {
+          alert("Invalid GeoJSON data. Please check your input.");
+        }
+      }
+
+      // Function to load GeoJSON from URL
       function loadGeoJSON(url) {
         fetch(url)
           .then((response) => {
@@ -123,15 +176,8 @@
             return response.json();
           })
           .then((data) => {
-            // Remove the current layer if it exists
-            if (currentLayer) {
-              map.removeLayer(currentLayer);
-            }
-            // Add new GeoJSON data to the map
-            currentLayer = L.geoJSON(data).addTo(map);
-            map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
-
-            // Populate the editor with the GeoJSON data
+            currentGeoJSON = data;
+            updateMap(); // Reflect the changes on the map
             document.getElementById("geojson-editor").value = JSON.stringify(
               data,
               null,
@@ -143,25 +189,7 @@
           });
       }
 
-      // Function to update the map with edited GeoJSON
-      function updateMapFromEditor() {
-        const geojsonText = document.getElementById("geojson-editor").value;
-        try {
-          const geojsonData = JSON.parse(geojsonText);
-
-          // Remove the current layer if it exists
-          if (currentLayer) {
-            map.removeLayer(currentLayer);
-          }
-          // Add updated GeoJSON data to the map
-          currentLayer = L.geoJSON(geojsonData).addTo(map);
-          map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
-        } catch (error) {
-          alert("Invalid GeoJSON data. Please check your input.");
-        }
-      }
-
-      // Event listener for the Load button
+      // Event listener for Load button
       document.getElementById("load-btn").addEventListener("click", () => {
         const url = document.getElementById("geojson-url").value;
         if (url) {
@@ -171,8 +199,54 @@
         }
       });
 
-            // Debounce function to limit the frequency of function execution
-            function debounce(func, delay) {
+      // Event listener for Update button
+      document
+        .getElementById("update-btn")
+        .addEventListener("click", updateGeoJSONFromEditor);
+
+      // Event listener for changes in the GeoJSON editor
+      document
+        .getElementById("geojson-editor")
+        .addEventListener("input", debounce(updateGeoJSONFromEditor, 500));
+
+      // Event listener for Leaflet Draw: created
+      map.on("draw:created", function (e) {
+        const layer = e.layer;
+        drawnItems.addLayer(layer);
+
+        // Update currentGeoJSON after drawing a new feature
+        currentGeoJSON = drawnItems.toGeoJSON();
+        document.getElementById("geojson-editor").value = JSON.stringify(
+          currentGeoJSON,
+          null,
+          2
+        );
+      });
+
+      // Event listener for Leaflet Draw: edited
+      map.on("draw:edited", function (e) {
+        // Update currentGeoJSON after editing features
+        currentGeoJSON = drawnItems.toGeoJSON();
+        document.getElementById("geojson-editor").value = JSON.stringify(
+          currentGeoJSON,
+          null,
+          2
+        );
+      });
+
+      // Event listener for Leaflet Draw: deleted
+      map.on("draw:deleted", function (e) {
+        // Update currentGeoJSON after deleting features
+        currentGeoJSON = drawnItems.toGeoJSON();
+        document.getElementById("geojson-editor").value = JSON.stringify(
+          currentGeoJSON,
+          null,
+          2
+        );
+      });
+
+      // Debounce function
+      function debounce(func, delay) {
         let timeout;
         return function (...args) {
           clearTimeout(timeout);
@@ -180,37 +254,8 @@
         };
       }
 
-      // Function to update the map with edited GeoJSON
-      function updateMapFromEditor() {
-        const geojsonText = document.getElementById("geojson-editor").value;
-        try {
-          const geojsonData = JSON.parse(geojsonText);
-
-          // Remove the current layer if it exists
-          if (currentLayer) {
-            map.removeLayer(currentLayer);
-          }
-          // Add updated GeoJSON data to the map
-          currentLayer = L.geoJSON(geojsonData).addTo(map);
-          map.fitBounds(currentLayer.getBounds()); // Adjust the map view to fit the GeoJSON data
-        } catch (error) {
-          console.error("Invalid GeoJSON data. Ignoring changes.");
-        }
-      }
-
-      // Debounced version of the updateMapFromEditor function
-      const debouncedUpdateMap = debounce(updateMapFromEditor, 500);
-
-      // Event listener for changes in the textarea
-      document
-        .getElementById("geojson-editor")
-        .addEventListener("input", debouncedUpdateMap);
-
-
-      // Event listener for the Update button
-      document
-        .getElementById("update-btn")
-        .addEventListener("click", updateMapFromEditor);
+      // Initialize map with empty GeoJSON (in case the user loads data)
+      updateMap();
     </script>
   </body>
 </html>
