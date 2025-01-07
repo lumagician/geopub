@@ -1,0 +1,493 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-01-07T07:05:43Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/408474132",
+        "amenity": "drinking_water",
+        "designation": "Fachschaftsrat VIII",
+        "level": "1",
+        "opening_hours": "We,Th 12:15-13:45",
+        "ref:room": "A 112"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3508222,
+          52.545075
+        ]
+      },
+      "id": "node/408474132"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/801681456",
+        "amenity": "drinking_water",
+        "description": "Trinkbrunnen",
+        "fountain": "bubbler"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3813936,
+          52.5525831
+        ]
+      },
+      "id": "node/801681456"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4850307508",
+        "amenity": "drinking_water",
+        "description": "Trinkbrunnen",
+        "fountain": "bubbler",
+        "operational_status": "under_construction",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:short": "BWB",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe",
+        "survey:date": "2024-08-14",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.40452,
+          52.5698534
+        ]
+      },
+      "id": "node/4850307508"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4985382302",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "description": "Trinkbrunnen, Schüttung circa 30 ml pro Sekunde, Flaschen füllen möglich",
+        "fee": "no",
+        "fountain": "bubbler",
+        "opening_hours": "24/7",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:short": "BWB",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe",
+        "seasonal": "spring;summer;autumn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3872405,
+          52.549671
+        ]
+      },
+      "id": "node/4985382302"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5016215822",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "description": "Trinkbrunnen",
+        "drinking_water:seasonal": "yes",
+        "fee": "no",
+        "fountain": "bubbler"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.398695,
+          52.5412732
+        ]
+      },
+      "id": "node/5016215822"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6549749322",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "covered": "no",
+        "fee": "no",
+        "fountain": "bubbler",
+        "indoor": "no",
+        "lit": "no",
+        "opening_hours": "24/7",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:short": "BWB",
+        "operator:type": "public",
+        "operator:wikidata": "Q821856",
+        "seasonal": "spring;summer;autumn",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.364205,
+          52.5438933
+        ]
+      },
+      "id": "node/6549749322"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7054234783",
+        "access": "yes",
+        "addr:floor": "0",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "covered": "no",
+        "fee": "no",
+        "fountain": "bubbler",
+        "indoor": "no",
+        "level": "0",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe",
+        "source": "survey"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3599699,
+          52.5506776
+        ]
+      },
+      "id": "node/7054234783"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7256261950",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "colour": "blue",
+        "fee": "no",
+        "fountain": "bubbler",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3675653,
+          52.5520027
+        ]
+      },
+      "id": "node/7256261950"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7412106383",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "colour": "blue",
+        "fee": "no",
+        "fountain": "drinking",
+        "not:operator:wikidata": "Q821856",
+        "operator": "Berliner Wasserbetriebe",
+        "wheelchair": "yes",
+        "wikidata": "Q122508621"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3922503,
+          52.5554365
+        ]
+      },
+      "id": "node/7412106383"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7476527096",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "colour": "blue",
+        "fountain": "bubbler"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3614592,
+          52.5632727
+        ]
+      },
+      "id": "node/7476527096"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7745006793",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "fee": "no",
+        "fountain": "bubbler",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3393309,
+          52.5327326
+        ]
+      },
+      "id": "node/7745006793"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9060548518",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "fee": "no",
+        "fountain": "bubbler",
+        "opening_hours": "24/7",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:short": "BWB",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe",
+        "seasonal": "spring;summer;autumn",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3696294,
+          52.5444376
+        ]
+      },
+      "id": "node/9060548518"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9566605416",
+        "access": "yes",
+        "addr:floor": "0",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "covered": "no",
+        "fee": "no",
+        "fountain": "bubbler",
+        "indoor": "no",
+        "level": "0",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:wikidata": "Q821856",
+        "source": "survey",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3627384,
+          52.548927
+        ]
+      },
+      "id": "node/9566605416"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9668480937",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "colour": "blue",
+        "fee": "no",
+        "fountain": "bubbler",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:short": "BWB",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3593835,
+          52.5428574
+        ]
+      },
+      "id": "node/9668480937"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9759143948",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "fountain": "bubbler",
+        "panoramax": "00379e8a-de4c-4b73-b3bf-0a37ffa0ef6f",
+        "panoramax:0": "01134ea5-9fdc-4a76-90b5-2074e13a4482",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3530154,
+          52.5398611
+        ]
+      },
+      "id": "node/9759143948"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9860528200",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "description": "Trinkbrunnen Bürgerpark Pankow, barrierefreies Modell",
+        "fee": "no",
+        "fountain": "bubbler",
+        "not:operator:wikidata": "Q821856",
+        "operator": "Berliner Wasserbetriebe",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3959752,
+          52.5689948
+        ]
+      },
+      "id": "node/9860528200"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9868842460",
+        "amenity": "drinking_water",
+        "fountain": "bubbler",
+        "wikimedia_commons": "File:Bubbler Mauerpark, Berlin, Germany Aug 21, 2023 03-13-11 PM.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.402748,
+          52.5417769
+        ]
+      },
+      "id": "node/9868842460"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9900439480",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "fountain": "bubbler",
+        "panoramax": "a2354736-22d7-4c9a-91f1-cee2ec25989a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3520526,
+          52.546131
+        ]
+      },
+      "id": "node/9900439480"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10712018222",
+        "access": "yes",
+        "amenity": "drinking_water",
+        "description": "Trinkbrunnen",
+        "fee": "no",
+        "fountain": "bubbler",
+        "wheelchair": "yes",
+        "wikimedia_commons": "File:Bubbler, Mauerpark, Berlin, Germany Aug 21, 2023 04-10-12 PM.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4004115,
+          52.5438972
+        ]
+      },
+      "id": "node/10712018222"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11207439373",
+        "access": "yes",
+        "addr:floor": "0",
+        "amenity": "drinking_water",
+        "bottle": "yes",
+        "covered": "no",
+        "fee": "no",
+        "fountain": "bubbler",
+        "indoor": "no",
+        "level": "0",
+        "lit": "yes",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:wikidata": "Q821856",
+        "source": "survey",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3612992,
+          52.5479612
+        ]
+      },
+      "id": "node/11207439373"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11806799834",
+        "amenity": "drinking_water",
+        "description": "Trinkbrunnen",
+        "fee": "no",
+        "fountain": "bubbler",
+        "operator": "Berliner Wasserbetriebe",
+        "operator:wikidata": "Q821856",
+        "operator:wikipedia": "de:Berliner Wasserbetriebe"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3830819,
+          52.55947
+        ]
+      },
+      "id": "node/11806799834"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12216976151",
+        "amenity": "drinking_water",
+        "fountain": "bubbler"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3785805,
+          52.5609014
+        ]
+      },
+      "id": "node/12216976151"
+    }
+  ]
+}

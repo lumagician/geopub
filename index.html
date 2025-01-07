@@ -56,7 +56,8 @@
         margin-bottom: 15px;
       }
       #geojson-editor {
-        flex-grow: 1;
+        box-sizing: border-box;
+        flex: 1;
         width: 100%;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -95,11 +96,13 @@
         />
         <button id="load-btn">Load GeoJSON</button>
       </div>
-      <textarea
+        <textarea
         id="geojson-editor"
         placeholder="Edit GeoJSON here..."
       ></textarea>
+
       <button id="update-btn">Update Map</button>
+      <button id="update-btn" style="background-color: darkgray; color: gray;">Save Changes</button>
     </div>
     <div id="map"></div>
 
@@ -107,7 +110,7 @@
     <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
     <script>
       // Initialize the map
-      const map = L.map("map").setView([0, 0], 2); // Default view at world scale
+      const map = L.map("map", {zoomControl: false}).setView([0, 0], 2); // Default view at world scale
 
       // Add OpenStreetMap tile layer
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -124,8 +127,13 @@
         features: [],
       };
 
+      // Add zoom controls to map
+      const zoomControl = new L.Control.Zoom({position: "topright"});
+      map.addControl(zoomControl);
+
       // Initialize Leaflet Draw
       const drawControl = new L.Control.Draw({
+        position: "topright",
         edit: {
           featureGroup: drawnItems,
         },
